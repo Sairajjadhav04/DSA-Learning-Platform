@@ -1,0 +1,852 @@
+1. Stack – Definition
+A Stack is a linear data structure in which insertion and deletion of elements are performed only from one end called the TOP.
+
+Stack follows the principle:
+
+LIFO – Last In, First Out
+
+This means the element inserted last is removed first.
+
+Example
+Suppose we perform:
+
+Push(10)
+Push(20)
+Push(30)
+The stack becomes:
+
+TOP → 30
+       20
+       10
+If we perform Pop(), 30 will be removed first.
+
+TOP → 20
+       10
+2. Stack ADT
+Definition of ADT
+ADT (Abstract Data Type) is a logical description of a data structure that specifies:
+
+What data is stored
+
+What operations can be performed
+
+What those operations do
+
+It does not specify how the operations are implemented.
+
+Stack ADT
+A Stack ADT can be defined as:
+
+Stack ADT
+Data:
+    Collection of elements
+    TOP indicating the topmost element
+
+Operations:
+    Push()
+    Pop()
+    Peek()
+    IsEmpty()
+    IsFull()
+    Display()
+Your program implements the Stack ADT using an array.
+
+3. Stack Representation in Your Code
+Your class is:
+
+class Stack:
+The constructor is:
+
+def __init__(self, size):
+    self.size = size
+    self.stack = [0] * size
+    self.top = -1
+Suppose:
+
+size = 5
+Then:
+
+self.stack = [0] * 5
+creates:
+
+Index:    0    1    2    3    4
+Stack:   [0]  [0]  [0]  [0]  [0]
+Initially:
+
+top = -1
+top = -1 means the stack is empty.
+
+Why is TOP initially -1?
+Because array indexing starts from 0.
+
+For an empty stack, there is no valid index containing an element, so:
+
+TOP = -1
+After inserting the first element:
+
+top = top + 1
+     = -1 + 1
+     = 0
+Therefore, the first element is stored at index 0.
+
+4. Stack Operations
+Your program contains six main operations:
+
+Operation	Purpose
+Push	Insert an element
+Pop	Delete the top element
+Peek	View the top element
+IsEmpty	Check whether stack is empty
+IsFull	Check whether stack is full
+Display	Display all stack elements
+5. PUSH Operation
+Your code:
+
+def push(self, element):
+    if self.top == self.size - 1:
+        print("Stack Overflow")
+    else:
+        self.top += 1
+        self.stack[self.top] = element
+        print(f"{element} entered in the stack successfully")
+Explanation
+First, it checks whether the stack is full:
+
+if self.top == self.size - 1:
+For size 5:
+
+Last valid index = 5 - 1 = 4
+So:
+
+top == 4
+means the stack is full.
+
+If full:
+
+Stack Overflow
+Otherwise:
+
+self.top += 1
+moves TOP to the next position.
+
+Then:
+
+self.stack[self.top] = element
+stores the element.
+
+PUSH Algorithm
+Algorithm PUSH(element)
+
+Step 1: If TOP == SIZE - 1
+            Print "Stack Overflow"
+            Go to Step 4
+
+Step 2: TOP = TOP + 1
+
+Step 3: STACK[TOP] = element
+
+Step 4: Stop
+Push Example
+Initial:
+
+TOP = -1
+
+Index:    0    1    2    3    4
+Stack:   [0]  [0]  [0]  [0]  [0]
+Perform:
+
+Push(10)
+TOP becomes:
+
+TOP = 0
+Stack:
+
+Index:    0    1    2    3    4
+Stack:   [10]  [0]  [0]  [0]  [0]
+          ↑
+         TOP
+6. POP Operation
+Your code:
+
+def pop(self):
+    if self.top == -1:
+        print("Stack Underflow")
+    else:
+        print("Pop element:", self.stack[self.top])
+        self.top -= 1
+Explanation
+First:
+
+if self.top == -1:
+checks whether the stack is empty.
+
+If empty:
+
+Stack Underflow
+Otherwise, the top element is printed:
+
+self.stack[self.top]
+Then:
+
+self.top -= 1
+moves TOP one position downward.
+
+Important
+Your code does not physically delete the value from the array.
+
+For example:
+
+Before POP:
+
+Index:    0    1    2
+Stack:   [10] [20] [30]
+                    ↑
+                   TOP
+After:
+
+self.top -= 1
+we get:
+
+Index:    0    1    2
+Stack:   [10] [20] [30]
+               ↑
+              TOP
+30 may still exist in the underlying array, but logically it is no longer part of the stack, because top = 1.
+
+This is also why your display uses:
+
+range(0, self.top + 1)
+instead of displaying the whole array.
+
+POP Algorithm
+Algorithm POP()
+
+Step 1: If TOP == -1
+            Print "Stack Underflow"
+            Go to Step 4
+
+Step 2: Print STACK[TOP]
+
+Step 3: TOP = TOP - 1
+
+Step 4: Stop
+7. PEEK Operation
+Your code:
+
+def peek(self):
+    if self.top == -1:
+        print("Stack is Empty")
+    else:
+        print("Top element is:", self.stack[self.top])
+Peek means view the top element without removing it.
+
+Example:
+
+Stack:
+
+       30 ← TOP
+       20
+       10
+Perform:
+
+Peek()
+Output:
+
+Top element is: 30
+The stack remains unchanged.
+
+Peek Algorithm
+Algorithm PEEK()
+
+Step 1: If TOP == -1
+            Print "Stack is Empty"
+
+Step 2: Otherwise
+            Print STACK[TOP]
+
+Step 3: Stop
+8. IS_EMPTY Operation
+Your code:
+
+def is_empty(self):
+    return self.top == -1
+If:
+
+top == -1
+then:
+
+True
+Otherwise:
+
+False
+Example
+top = -1
+Result:
+
+True
+Therefore:
+
+Stack is Empty
+9. IS_FULL Operation
+Your code:
+
+def is_full(self):
+    return self.top == self.size - 1
+For:
+
+size = 5
+the last valid index is:
+
+4
+Therefore:
+
+top == 4
+means stack is full.
+
+10. DISPLAY Operation
+Your code:
+
+def display(self):
+    if self.top == -1:
+        print("Stack is Empty, Nothing to display")
+    else:
+        print("Stack elements are:")
+        for i in range(0,self.top+1):
+            print(self.stack[i])
+This is the corrected approach for your array implementation.
+
+Why self.top + 1?
+Suppose:
+
+top = 2
+The valid elements are at:
+
+0
+1
+2
+So:
+
+range(0, self.top + 1)
+becomes:
+
+range(0, 3)
+which gives:
+
+0, 1, 2
+Therefore, it does not print unused 0s.
+
+11. Why Your Original Display Could Print Extra 0s
+If you used:
+
+for i in range(0, self.size):
+and size is 5, it always prints:
+
+index 0
+index 1
+index 2
+index 3
+index 4
+Suppose only 2 elements were inserted:
+
+[10, 20, 0, 0, 0]
+It would print:
+
+10
+20
+0
+0
+0
+But your current code:
+
+for i in range(0, self.top + 1):
+prints only:
+
+10
+20
+So your current display logic is correct.
+
+12. Stack Overflow
+Stack Overflow occurs when we try to insert an element into a stack that is already full.
+
+For size 3:
+
+Push(10)
+Push(20)
+Push(30)
+Stack:
+
+       30 ← TOP
+       20
+       10
+Now:
+
+Push(40)
+results in:
+
+Stack Overflow
+Condition:
+
+self.top == self.size - 1
+13. Stack Underflow
+Stack Underflow occurs when we try to delete an element from an empty stack.
+
+Example:
+
+Stack = Empty
+Then:
+
+Pop()
+Output:
+
+Stack Underflow
+Condition:
+
+self.top == -1
+14. Complete Tracing of Your Code
+Let's take:
+
+Enter the size of stack: 5
+Initial state:
+
+size = 5
+top = -1
+
+Index:    0    1    2    3    4
+Stack:   [0]  [0]  [0]  [0]  [0]
+Now perform these operations:
+
+1 → Push 10
+1 → Push 20
+1 → Push 30
+3 → Peek
+6 → Display
+2 → Pop
+6 → Display
+4 → Check Empty
+5 → Check Full
+7 → Exit
+Step 1: Push 10
+Before:
+
+top = -1
+Check:
+
+-1 == 4 → False
+Execute:
+
+top += 1
+Therefore:
+
+top = 0
+Then:
+
+stack[0] = 10
+Stack:
+
+Index:    0    1    2    3    4
+Stack:   [10] [0]  [0]  [0]  [0]
+          ↑
+         TOP
+Output:
+
+10 entered in the stack successfully
+Step 2: Push 20
+Before:
+
+top = 0
+After:
+
+top = 1
+Stack:
+
+Index:    0    1    2    3    4
+Stack:   [10] [20] [0]  [0]  [0]
+               ↑
+              TOP
+Output:
+
+20 entered in the stack successfully
+Step 3: Push 30
+After:
+
+top = 2
+Stack:
+
+Index:    0    1    2    3    4
+Stack:   [10] [20] [30] [0]  [0]
+                    ↑
+                   TOP
+Output:
+
+30 entered in the stack successfully
+Step 4: Peek
+Current:
+
+top = 2
+Therefore:
+
+stack[top]
+is:
+
+stack[2] = 30
+Output:
+
+Top element is: 30
+Stack does not change.
+
+Step 5: Display
+Current:
+
+top = 2
+Loop:
+
+range(0, top + 1)
+becomes:
+
+range(0, 3)
+Therefore:
+
+i = 0 → 10
+i = 1 → 20
+i = 2 → 30
+Output:
+
+Stack elements are:
+10
+20
+30
+Step 6: Pop
+Current:
+
+top = 2
+Element:
+
+stack[2] = 30
+Output:
+
+Pop element: 30
+Then:
+
+top -= 1
+Therefore:
+
+top = 1
+Logical stack:
+
+Index:    0    1    2    3    4
+Stack:   [10] [20] [30] [0]  [0]
+               ↑
+              TOP
+Remember: 30 may remain physically in the array, but it is no longer considered part of the stack.
+
+Step 7: Display Again
+Now:
+
+top = 1
+Loop:
+
+range(0, 2)
+Therefore:
+
+i = 0 → 10
+i = 1 → 20
+Output:
+
+Stack elements are:
+10
+20
+Step 8: Check Empty
+is_empty()
+checks:
+
+top == -1
+Current:
+
+top = 1
+Therefore:
+
+False
+Output:
+
+Stack is not Empty
+Step 9: Check Full
+is_full()
+checks:
+
+top == size - 1
+Current:
+
+top = 1
+size = 5
+Therefore:
+
+1 == 4
+False
+Output:
+
+Stack is not Full
+Step 10: Exit
+Choice:
+
+7
+Output:
+
+Program ended!!!
+15. Complete Trace Table
+For exam/practical understanding, this table is very useful:
+
+Operation	TOP Before	Action	TOP After	Stack
+Initial	-1	Empty	-1	[0,0,0,0,0]
+Push(10)	-1	Insert 10	0	[10,0,0,0,0]
+Push(20)	0	Insert 20	1	[10,20,0,0,0]
+Push(30)	1	Insert 30	2	[10,20,30,0,0]
+Peek()	2	Display 30	2	[10,20,30,0,0]
+Display()	2	Display 10,20,30	2	[10,20,30,0,0]
+Pop()	2	Remove 30	1	[10,20,30,0,0]
+Display()	1	Display 10,20	1	[10,20,30,0,0]
+IsEmpty()	1	False	1	[10,20,30,0,0]
+IsFull()	1	False	1	[10,20,30,0,0]
+Notice the important point: after Pop(), 30 is still physically stored in the array, but because TOP = 1, it is not logically part of the stack.
+
+16. Time Complexity of Your Operations
+This is particularly important for AOA/DSA exams.
+
+Let:
+
+n = number of elements in stack
+Push
+Your code:
+
+self.top += 1
+self.stack[self.top] = element
+Both are constant operations.
+
+Therefore:
+
+T(n) = c
+Hence:
+
+Time Complexity = O(1)
+
+Pop
+Your code only accesses the top:
+
+self.stack[self.top]
+self.top -= 1
+Therefore:
+
+Time Complexity = O(1)
+
+Peek
+Only one array access:
+
+self.stack[self.top]
+Therefore:
+
+Time Complexity = O(1)
+
+IsEmpty
+Only one comparison:
+
+self.top == -1
+Therefore:
+
+Time Complexity = O(1)
+
+IsFull
+Only one comparison:
+
+self.top == self.size - 1
+Therefore:
+
+Time Complexity = O(1)
+
+Display
+Your code:
+
+for i in range(0, self.top + 1):
+    print(self.stack[i])
+If there are n elements, the loop executes n times.
+
+Therefore:
+
+Time Complexity = O(n)
+
+17. Time Complexity Table
+Operation	Time Complexity
+Push	O(1)
+Pop	O(1)
+Peek	O(1)
+IsEmpty	O(1)
+IsFull	O(1)
+Display	O(n)
+Overall
+For normal stack operations:
+
+Push     → O(1)
+Pop      → O(1)
+Peek     → O(1)
+This is one of the main advantages of a stack.
+
+18. Space Complexity
+Your stack is implemented using an array:
+
+self.stack = [0] * size
+If the stack size is n, the array requires space proportional to n.
+
+Therefore:
+
+Space Complexity = O(n)
+
+Auxiliary space
+The individual operations such as Push, Pop and Peek use only a constant amount of extra space:
+
+Auxiliary Space = O(1)
+So you can write in an exam:
+
+The space complexity of the array-based stack is O(n) because an array of size n is allocated to store the elements.
+
+19. Advantages of Stack
+Easy to implement.
+
+Push and Pop operations are fast.
+
+Push and Pop take O(1) time.
+
+Useful in recursion.
+
+Useful in expression evaluation.
+
+Useful in expression conversion.
+
+Used in function call management.
+
+Used in undo/redo operations.
+
+20. Applications of Stack
+Common applications include:
+
+1. Function calls
+Programming languages use a call stack to manage function calls.
+
+2. Recursion
+Recursive function calls are managed using a stack.
+
+3. Expression evaluation
+Stacks are used for evaluating:
+
+Postfix expressions
+Prefix expressions
+4. Expression conversion
+Stack is used for:
+
+Infix → Postfix
+Infix → Prefix
+5. Parentheses matching
+For example:
+
+{ [ ( ) ] }
+A stack can be used to check whether brackets are properly matched.
+
+6. Undo/Redo
+Applications such as text editors can use stacks for undo operations.
+
+7. Browser history
+Back/forward navigation can be implemented using stack concepts.
+
+21. Important Difference: Stack vs Queue
+Stack	Queue
+Follows LIFO	Follows FIFO
+Insertion at TOP	Insertion at REAR
+Deletion from TOP	Deletion from FRONT
+Last inserted element removed first	First inserted element removed first
+Example: stack of plates	Example: queue of people
+22. Important Viva Questions
+Q1. What is a stack?
+A stack is a linear data structure in which insertion and deletion are performed from one end called TOP. It follows LIFO.
+
+Q2. What does LIFO mean?
+Last In, First Out.
+
+The element inserted last is removed first.
+
+Q3. What is TOP?
+TOP is a variable/index that indicates the position of the topmost element in the stack.
+
+Q4. Why is TOP initialized to -1?
+Because -1 represents that the stack is initially empty.
+
+Q5. What is stack overflow?
+It occurs when we try to insert an element into a full stack.
+
+Q6. What is stack underflow?
+It occurs when we try to delete an element from an empty stack.
+
+Q7. What is the time complexity of Push?
+O(1).
+
+Q8. What is the time complexity of Pop?
+O(1).
+
+Q9. What is the time complexity of Display?
+O(n).
+
+Q10. What is the space complexity of an array-based stack?
+O(n).
+
+Q11. What is Peek?
+Peek returns/displays the top element without deleting it.
+
+Q12. Does Pop physically delete the value from your array?
+No. Your code only decreases top. The old value may remain in the array, but it is outside the logical stack.
+
+Q13. Why does Display use top + 1?
+Because array indices start from 0, and we need to display indices from 0 through top.
+
+range(0, self.top + 1)
+prevents unused array positions containing 0 from being displayed.
+
+23. Exam-Ready Definition
+You can write this in your DSA exam:
+
+Stack: A stack is a linear data structure in which insertion and deletion of elements are performed only at one end called the TOP. It follows the LIFO (Last In First Out) principle, in which the element inserted last is removed first. The basic operations performed on a stack are Push, Pop, Peek, IsEmpty and IsFull.
+
+Stack ADT
+Stack ADT: Stack ADT is an abstract data type that defines a collection of elements along with operations such as Push, Pop, Peek, IsEmpty and IsFull. The implementation details are hidden from the user. A stack can be implemented using an array or linked list.
+
+One important point about your exact code
+Your implementation is a fixed-size array-based Stack ADT:
+
+             STACK
+               │
+       ┌───────┴────────┐
+       │                │
+    Data Array          TOP
+       │                │
+ [10][20][30][0][0]      2
+The most important logic to remember is:
+
+Empty Stack:
+TOP = -1
+
+Push:
+TOP = TOP + 1
+STACK[TOP] = element
+
+Pop:
+STACK[TOP]
+TOP = TOP - 1
+
+Full:
+TOP = SIZE - 1
+And the complexities you should remember:
+
+Push      → O(1)
+Pop       → O(1)
+Peek      → O(1)
+IsEmpty   → O(1)
+IsFull    → O(1)
+Display   → O(n)
+
+Space     → O(n)
+This is the core of your Stack ADT using Array implementation.
