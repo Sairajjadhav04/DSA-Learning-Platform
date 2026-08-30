@@ -1,0 +1,637 @@
+Queue Data Structure
+1. Definition of Queue
+A Queue is a linear data structure that follows the FIFO (First In First Out) principle.
+
+This means:
+
+The element inserted first is removed first.
+
+Real-life example
+A queue at a ticket counter:
+
+Front → [10] [20] [30] [40] ← Rear
+If 10 entered first, it will be removed first.
+
+Insertion is performed at the Rear.
+
+Deletion is performed from the Front.
+
+2. Queue ADT
+ADT (Abstract Data Type) defines the behavior and operations of a data structure without focusing on its internal implementation.
+
+A Queue ADT supports the following operations:
+
+Operation	Description
+Enqueue()	Insert an element at the rear
+Dequeue()	Remove an element from the front
+Peek()	View the front element
+is_Empty()	Check whether the queue is empty
+is_Full()	Check whether the queue is full
+display()	Display all queue elements
+3. Representation of Your Queue
+Your code uses an array-based linear queue.
+
+Initially:
+
+Queue = [0, 0, 0, 0, 0]
+Front = -1
+Rear  = -1
+The value -1 indicates that the queue is currently empty.
+
+4. Your Queue Code
+class Queue:
+def init(self, size):
+self.size = size
+self.queue = [0] * size
+self.front = -1
+self.rear = -1
+
+# Check Empty
+def is_Empty(self):
+    return self.front == -1
+
+# Check Full
+def is_Full(self):
+    return self.rear == self.size - 1
+
+# Enqueue Operation
+def Enqueue(self, item):
+    if self.is_Full():
+        print("Queue Overflow!!")
+    else:
+        if self.front == -1:
+            self.front = 0
+
+        self.rear += 1
+        self.queue[self.rear] = item
+
+        print(f"{item} entered inside the Queue")
+
+# Dequeue Operation
+def Dequeue(self):
+    if self.is_Empty():
+        print("Queue Underflow!!")
+    else:
+        item = self.queue[self.front]
+
+        if self.front == self.rear:
+            self.front = -1
+            self.rear = -1
+        else:
+            self.front += 1
+
+        print(f"{item} Removed From the Queue")
+
+# Peek Operation
+def Peek(self):
+    if self.is_Empty():
+        print("Queue is Empty!!")
+    else:
+        print(f"Peek / Front element is {self.queue[self.front]}")
+
+# Display Operation
+def display(self):
+    if self.is_Empty():
+        print("Queue is empty, nothing to display!!")
+    else:
+        print("Queue elements are:")
+
+        for i in range(self.front, self.rear + 1):
+            print(self.queue[i], end=" ")
+
+        print()
+Main Function
+size = int(input("Enter the size of Queue: "))
+q = Queue(size)
+
+while True:
+
+print("\n\tQueue ADT Operations\n")
+
+print("1. Enqueue")
+print("2. Dequeue")
+print("3. Peek")
+print("4. Display")
+print("5. Exit")
+
+choice = int(input("Enter your choice: "))
+
+# Switch Case using match-case
+match choice:
+
+    case 1:
+        value = int(input("Enter element: "))
+        q.Enqueue(value)
+
+    case 2:
+        q.Dequeue()
+
+    case 3:
+        q.Peek()
+
+    case 4:
+        q.display()
+
+    case 5:
+        print("Exiting Program...")
+        break
+
+    case _:
+        print("Invalid choice! Enter a valid choice.")
+5. Algorithm: Create Queue
+Algorithm: CREATE_QUEUE(size)
+Step 1: Start
+Step 2: Create an array Queue of given size
+Step 3: Set FRONT = -1
+Step 4: Set REAR = -1
+Step 5: Stop
+Initial representation
+Queue = [0, 0, 0, 0, 0]
+
+Front = -1
+Rear  = -1
+6. Enqueue Operation
+Definition
+Enqueue means inserting a new element at the rear of the queue.
+
+Algorithm: ENQUEUE(item)
+Step 1: Check whether the queue is full.
+
+Step 2: If REAR = SIZE - 1,
+        print "Queue Overflow"
+        Stop.
+
+Step 3: If FRONT = -1,
+        set FRONT = 0.
+
+Step 4: Increment REAR by 1.
+
+Step 5: Insert ITEM at QUEUE[REAR].
+
+Step 6: Stop.
+Tracing Enqueue
+Suppose:
+
+Size = 5
+Initially:
+
+Index:    0   1   2   3   4
+Queue:   [0] [0] [0] [0] [0]
+
+Front = -1
+Rear  = -1
+Enqueue(10)
+Since the queue is not full:
+
+Front = 0
+Rear = Rear + 1
+Rear = 0
+Insert 10:
+
+Front → [10] [0] [0] [0] [0]
+          ↑
+         Rear
+Front = 0
+Rear  = 0
+Enqueue(20)
+Rear = 1
+Queue[1] = 20
+Front → [10] [20] [0] [0] [0]
+                 ↑
+                Rear
+Enqueue(30)
+Front → [10] [20] [30] [0] [0]
+                        ↑
+                       Rear
+Front = 0
+Rear = 2
+7. Dequeue Operation
+Definition
+Dequeue removes an element from the front of the queue.
+
+Because Queue follows FIFO:
+
+The first inserted element is the first element removed.
+
+Algorithm: DEQUEUE()
+Step 1: Check whether the queue is empty.
+
+Step 2: If FRONT = -1,
+        print "Queue Underflow"
+        Stop.
+
+Step 3: Store QUEUE[FRONT] in ITEM.
+
+Step 4: Check if FRONT = REAR.
+
+Step 5: If FRONT = REAR,
+        set FRONT = -1
+        set REAR = -1
+
+Step 6: Otherwise,
+        increment FRONT by 1.
+
+Step 7: Print the deleted ITEM.
+
+Step 8: Stop.
+8. Tracing Dequeue
+Current queue:
+
+Front → [10] [20] [30] [0] [0]
+                        ↑
+                       Rear
+
+Front = 0
+Rear = 2
+Dequeue()
+The element at:
+
+Queue[Front]
+Queue[0]
+is:
+
+10
+So:
+
+item = 10
+Now increment:
+
+Front = Front + 1
+Front = 1
+Logical queue becomes:
+
+         Front → [20] [30] ← Rear
+Physical array still contains:
+
+[10] [20] [30] [0] [0]
+But 10 is no longer considered part of the queue because:
+
+Front = 1
+Therefore:
+
+Active Queue = [20, 30]
+9. Peek Operation
+Definition
+The Peek operation displays the element at the front of the queue without removing it.
+
+Algorithm: PEEK()
+Step 1: Check if the queue is empty.
+
+Step 2: If FRONT = -1,
+        print "Queue is Empty"
+        Stop.
+
+Step 3: Display QUEUE[FRONT].
+
+Step 4: Stop.
+Example
+Queue = [10, 20, 30]
+
+Front = 0
+Rear = 2
+Peek returns:
+
+10
+The queue remains unchanged.
+
+10. Display Operation
+Algorithm: DISPLAY()
+Step 1: Check if the queue is empty.
+
+Step 2: If FRONT = -1,
+        print "Queue is Empty"
+        Stop.
+
+Step 3: Set i = FRONT.
+
+Step 4: Repeat while i <= REAR:
+            Display QUEUE[i]
+            Increment i.
+
+Step 5: Stop.
+Example
+Array:
+
+Index:     0    1    2    3    4
+Queue:    [10] [20] [30] [0] [0]
+
+Front = 0
+Rear  = 2
+The loop:
+
+for i in range(self.front, self.rear + 1):
+will run:
+
+i = 0 → 10
+i = 1 → 20
+i = 2 → 30
+Output:
+
+10 20 30
+11. is_Empty Operation
+Your code:
+
+def is_Empty(self):
+    return self.front == -1
+Logic
+A queue is empty when:
+
+Front = -1
+Example:
+
+Front = -1
+Rear = -1
+Therefore:
+
+Queue is Empty
+12. is_Full Operation
+Your code:
+
+def is_Full(self):
+    return self.rear == self.size - 1
+A linear array queue is full when:
+
+Rear = Size - 1
+Example:
+
+Size = 5
+Valid indexes:
+
+0 1 2 3 4
+Therefore, when:
+
+Rear = 4
+The queue is full.
+
+Trying to insert another element produces:
+
+Queue Overflow!!
+13. Complete Code Tracing
+Suppose:
+
+Queue Size = 5
+Initially:
+
+Queue = [0, 0, 0, 0, 0]
+Front = -1
+Rear = -1
+Operation 1: Enqueue(10)
+Front = 0
+Rear = 0
+[10] [0] [0] [0] [0]
+ ↑
+F,R
+Operation 2: Enqueue(20)
+Front = 0
+Rear = 1
+[10] [20] [0] [0] [0]
+ ↑     ↑
+ F     R
+Operation 3: Enqueue(30)
+Front = 0
+Rear = 2
+[10] [20] [30] [0] [0]
+ ↑           ↑
+ F           R
+Operation 4: Peek()
+Queue[Front] = Queue[0]
+Output:
+
+Peek / Front element is 10
+Queue remains unchanged.
+
+Operation 5: Dequeue()
+Removed:
+
+10
+Now:
+
+Front = 1
+Rear = 2
+[10] [20] [30] [0] [0]
+      ↑     ↑
+      F     R
+Logical queue:
+
+Front → [20] [30] ← Rear
+Operation 6: Display()
+The loop starts from:
+
+Front = 1
+and ends at:
+
+Rear = 2
+Therefore:
+
+20 30
+14. Overflow and Underflow
+Queue Overflow
+Queue Overflow occurs when we try to insert an element into a full queue.
+
+Condition:
+
+Rear = Size - 1
+Example:
+
+Size = 3
+
+[10] [20] [30]
+              ↑
+             Rear
+Trying:
+
+Enqueue(40)
+Output:
+
+Queue Overflow!!
+Queue Underflow
+Queue Underflow occurs when we try to remove an element from an empty queue.
+
+Condition:
+
+Front = -1
+Trying:
+
+Dequeue()
+Output:
+
+Queue Underflow!!
+15. Time Complexity of Queue Operations
+Operation	Time Complexity
+Enqueue	O(1)
+Dequeue	O(1)
+Peek	O(1)
+is_Empty	O(1)
+is_Full	O(1)
+Display	O(n)
+Space Complexity
+For an array of size n:
+
+Space Complexity = O(n)
+16. Types of Queues
+There are mainly four types of queues.
+
+1. Linear Queue
+A Linear Queue is the basic form of a queue.
+
+Front → [10] [20] [30] ← Rear
+Insertion at Rear
+
+Deletion at Front
+
+Follows FIFO
+
+Your code implements:
+Linear Queue using Array
+Limitation of Linear Queue
+Consider:
+
+Size = 5
+
+[10] [20] [30] [40] [50]
+ F                   R
+After removing two elements:
+
+[10] [20] [30] [40] [50]
+          F              R
+Even though positions 0 and 1 are logically free, Rear is already at the last index.
+
+Therefore, insertion may cause overflow.
+
+This is called wastage of space in a linear queue.
+
+2. Circular Queue
+A Circular Queue connects the last position of the array back to the first position.
+
+       ┌───────────────┐
+       ↓               │
+[10] [20] [30] [40] [50]
+ ↑
+ Front
+When the rear reaches the last position, it can move back to the beginning.
+
+It uses the modulo operator:
+
+Rear = (Rear + 1) % Size
+Advantage
+Unused positions can be reused.
+
+3. Priority Queue
+In a Priority Queue, elements are removed according to their priority rather than only their insertion order.
+
+Example:
+
+Element     Priority
+
+A              3
+B              1
+C              2
+The element with higher priority is processed first.
+
+Possible output order:
+
+B → C → A
+Priority queues are commonly used in:
+
+CPU Scheduling
+
+Graph algorithms
+
+Dijkstra's Algorithm
+
+Network routing
+
+4. Deque
+Deque means:
+
+Double Ended Queue
+
+Insertion and deletion can occur at both ends.
+
+Front ← [10] [20] [30] → Rear
+Operations include:
+
+Insert Front
+Insert Rear
+Delete Front
+Delete Rear
+There are two common types.
+
+Input Restricted Deque
+Insertion allowed at only one end.
+
+Deletion allowed at both ends.
+
+Output Restricted Deque
+Deletion allowed at only one end.
+
+Insertion allowed at both ends.
+
+17. Difference Between Stack and Queue
+Stack	Queue
+Follows LIFO	Follows FIFO
+Last In First Out	First In First Out
+Insertion using Push	Insertion using Enqueue
+Deletion using Pop	Deletion using Dequeue
+Uses Top pointer	Uses Front and Rear pointers
+Stack
+      [30] ← Top
+      [20]
+      [10]
+Queue
+Front → [10] [20] [30] ← Rear
+18. Important Viva Questions
+1. What is a Queue?
+A Queue is a linear data structure that follows the FIFO principle.
+
+2. What is FIFO?
+FIFO means First In First Out, where the first inserted element is removed first.
+
+3. Where does insertion occur in a Queue?
+Insertion occurs at the Rear.
+
+4. Where does deletion occur?
+Deletion occurs at the Front.
+
+5. What is Enqueue?
+Enqueue is the operation of inserting an element at the rear of the queue.
+
+6. What is Dequeue?
+Dequeue is the operation of removing an element from the front of the queue.
+
+7. What is Queue Overflow?
+It occurs when insertion is attempted in a full queue.
+
+8. What is Queue Underflow?
+It occurs when deletion is attempted in an empty queue.
+
+9. Which type of Queue is implemented by your code?
+Linear Queue using Array.
+
+10. What is the time complexity of Enqueue and Dequeue?
+Both operations have:
+
+O(1)
+11. What is the disadvantage of a Linear Queue?
+It can cause wastage of space after deletion because freed positions at the beginning cannot be reused when the rear reaches the end.
+
+12. Which Queue solves this problem?
+Circular Queue.
+
+Final Summary
+Your implementation is an Array-based Linear Queue ADT.
+
+The most important concept to remember is:
+
+                QUEUE
+
+        Enqueue        Dequeue
+           ↓              ↓
+
+        Rear           Front
+
+Front → [10] [20] [30] ← Rear
+
+        FIFO Principle
+   First In → First Out
+Operations implemented in your code: Enqueue, Dequeue, Peek, Display, is_Empty, and is_Full.
