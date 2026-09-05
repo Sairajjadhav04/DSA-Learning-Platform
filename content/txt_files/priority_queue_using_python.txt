@@ -1,0 +1,570 @@
+Priority Queue Data Structure
+1. Definition of Priority Queue
+A Priority Queue is a data structure in which every element has an associated priority.
+
+Unlike a normal queue, elements are removed according to their priority, rather than strictly following FIFO.
+
+If two elements have different priorities:
+
+The element with higher priority is processed first.
+
+The element with lower priority is processed later.
+
+Example:
+
+Element	Priority
+A	3
+B	1
+C	2
+Assuming smaller priority number means higher priority, the processing order is:
+
+B → C → A
+A priority queue is commonly used in:
+
+CPU Scheduling
+
+Dijkstra's Algorithm
+
+Prim's Algorithm
+
+Network Routing
+
+Hospital Emergency Systems
+
+Task Scheduling
+
+2. Priority Queue ADT
+ADT (Abstract Data Type) defines the operations and behavior of the data structure without focusing on its implementation.
+
+A Priority Queue supports the following operations:
+
+Operation	Description
+Enqueue()	Insert an element with a priority
+Dequeue()	Remove the highest-priority element
+Peek()	View the highest-priority element
+is_Empty()	Check whether the priority queue is empty
+is_Full()	Check whether the priority queue is full
+display()	Display all elements with their priorities
+3. Representation of Priority Queue
+A priority queue can store both:
+
+Element
+
+Priority
+
+For example:
+
+Element:   A    B    C
+Priority:  3    1    2
+The element with priority 1 has the highest priority.
+
+Therefore:
+
+B → C → A
+4. Priority Queue Code in Python
+class PriorityQueue:
+
+    def __init__(self, size):
+        self.size = size
+        self.queue = []
+
+    # Check Empty
+    def is_Empty(self):
+        return len(self.queue) == 0
+
+    # Check Full
+    def is_Full(self):
+        return len(self.queue) == self.size
+
+    # Enqueue Operation
+    def Enqueue(self, item, priority):
+
+        if self.is_Full():
+            print("Priority Queue Overflow!!")
+
+        else:
+            self.queue.append((item, priority))
+            print(f"{item} entered with priority {priority}")
+
+    # Dequeue Operation
+    def Dequeue(self):
+
+        if self.is_Empty():
+            print("Priority Queue Underflow!!")
+
+        else:
+            highest_priority_index = 0
+
+            for i in range(1, len(self.queue)):
+                if self.queue[i][1] < self.queue[highest_priority_index][1]:
+                    highest_priority_index = i
+
+            item = self.queue.pop(highest_priority_index)
+
+            print(f"{item[0]} Removed From Priority Queue")
+
+    # Peek Operation
+    def Peek(self):
+
+        if self.is_Empty():
+            print("Priority Queue is Empty!!")
+
+        else:
+            highest_priority_index = 0
+
+            for i in range(1, len(self.queue)):
+                if self.queue[i][1] < self.queue[highest_priority_index][1]:
+                    highest_priority_index = i
+
+            print(
+                f"Highest Priority Element is {self.queue[highest_priority_index][0]}"
+            )
+
+    # Display Operation
+    def display(self):
+
+        if self.is_Empty():
+            print("Priority Queue is Empty!!")
+
+        else:
+            print("Elements with Priorities:")
+
+            for item, priority in self.queue:
+                print(f"Element: {item}, Priority: {priority}")
+5. Main Function
+size = int(input("Enter the size of Priority Queue: "))
+
+pq = PriorityQueue(size)
+
+while True:
+
+    print("\n\tPriority Queue ADT Operations\n")
+
+    print("1. Enqueue")
+    print("2. Dequeue")
+    print("3. Peek")
+    print("4. Display")
+    print("5. Exit")
+
+    choice = int(input("Enter your choice: "))
+
+    match choice:
+
+        case 1:
+            value = int(input("Enter element: "))
+            priority = int(input("Enter priority: "))
+
+            pq.Enqueue(value, priority)
+
+        case 2:
+            pq.Dequeue()
+
+        case 3:
+            pq.Peek()
+
+        case 4:
+            pq.display()
+
+        case 5:
+            print("Exiting Program...")
+            break
+
+        case _:
+            print("Invalid Choice!")
+6. Algorithm: Create Priority Queue
+Algorithm: CREATE_PRIORITY_QUEUE(size)
+Step 1: Start
+
+Step 2: Create an empty Priority Queue.
+
+Step 3: Set the maximum size of the Priority Queue.
+
+Step 4: Stop.
+
+Initially:
+
+Priority Queue = [ ]
+7. Enqueue Operation
+Definition
+Enqueue means inserting an element along with its priority into the Priority Queue.
+
+Algorithm: ENQUEUE(item, priority)
+Step 1: Check whether the Priority Queue is full.
+
+Step 2: If the queue is full:
+
+Print "Priority Queue Overflow"
+Stop.
+
+Step 3: Insert the item and its priority.
+
+Step 4: Stop.
+
+Example
+Suppose:
+
+Size = 5
+Initially:
+
+Priority Queue = [ ]
+Enqueue(A, 3)
+[A, 3]
+Enqueue(B, 1)
+[A, 3], [B, 1]
+Enqueue(C, 2)
+[A, 3], [B, 1], [C, 2]
+Although A was inserted first, B will be removed first because it has the highest priority.
+
+Priority order:
+
+B → C → A
+8. Dequeue Operation
+Definition
+The Dequeue operation removes the element having the highest priority.
+
+In this implementation:
+
+Smaller Priority Number = Higher Priority
+Example:
+
+Element	Priority
+A	3
+B	1
+C	2
+The highest-priority element is:
+
+B
+because:
+
+Priority = 1
+Algorithm: DEQUEUE()
+Step 1: Check whether the Priority Queue is empty.
+
+Step 2: If empty:
+
+Print "Priority Queue Underflow"
+Stop.
+
+Step 3: Assume the first element has the highest priority.
+
+Step 4: Compare its priority with all other elements.
+
+Step 5: Find the element with the smallest priority value.
+
+Step 6: Remove that element.
+
+Step 7: Display the removed element.
+
+Step 8: Stop.
+
+9. Tracing Dequeue
+Current Priority Queue:
+
+Element     Priority
+
+A              3
+B              1
+C              2
+We compare priorities:
+
+A → 3
+B → 1
+C → 2
+The smallest priority value is:
+
+1
+Therefore:
+
+B has the highest priority.
+After Dequeue():
+
+Element     Priority
+
+A              3
+C              2
+Next removal will be:
+
+C
+Then:
+
+A
+10. Peek Operation
+Definition
+The Peek operation displays the highest-priority element without removing it.
+
+Algorithm: PEEK()
+Step 1: Check whether the Priority Queue is empty.
+
+Step 2: If empty:
+
+Print "Priority Queue is Empty"
+Stop.
+
+Step 3: Find the element with the highest priority.
+
+Step 4: Display that element.
+
+Step 5: Stop.
+
+Example
+Element     Priority
+
+A              3
+B              1
+C              2
+Peek returns:
+
+B
+The Priority Queue remains unchanged:
+
+A, B, C
+11. Display Operation
+Algorithm: DISPLAY()
+Step 1: Check whether the Priority Queue is empty.
+
+Step 2: If empty:
+
+Print "Priority Queue is Empty"
+Stop.
+
+Step 3: Traverse all elements.
+
+Step 4: Display each element and its priority.
+
+Step 5: Stop.
+
+Example:
+
+Element: A, Priority: 3
+Element: B, Priority: 1
+Element: C, Priority: 2
+12. is_Empty Operation
+def is_Empty(self):
+    return len(self.queue) == 0
+Logic
+A Priority Queue is empty when:
+
+Number of elements = 0
+Example:
+
+Priority Queue = [ ]
+Therefore:
+
+Priority Queue is Empty
+13. is_Full Operation
+def is_Full(self):
+    return len(self.queue) == self.size
+Logic
+The Priority Queue is full when:
+
+Number of Elements = Maximum Size
+Example:
+
+Size = 3
+Priority Queue:
+
+[A,3] [B,1] [C,2]
+Number of elements:
+
+3
+Therefore:
+
+Priority Queue is Full
+Trying to insert another element gives:
+
+Priority Queue Overflow!!
+14. Complete Code Tracing
+Suppose:
+
+Priority Queue Size = 5
+Initially:
+
+[ ]
+Operation 1: Enqueue(10, 3)
+Element: 10
+Priority: 3
+Queue:
+
+[(10, 3)]
+Operation 2: Enqueue(20, 1)
+Queue:
+
+[(10, 3), (20, 1)]
+Priority 1 is higher than priority 3.
+
+Therefore:
+
+20 will be processed first.
+Operation 3: Enqueue(30, 2)
+Queue:
+
+[(10, 3), (20, 1), (30, 2)]
+Priority order:
+
+20 → 30 → 10
+Operation 4: Peek()
+Highest-priority element:
+
+20
+Queue remains unchanged:
+
+[(10, 3), (20, 1), (30, 2)]
+Operation 5: Dequeue()
+Element removed:
+
+20
+Remaining queue:
+
+[(10, 3), (30, 2)]
+Next priority order:
+
+30 → 10
+15. Overflow and Underflow
+Priority Queue Overflow
+Overflow occurs when we try to insert an element into a full Priority Queue.
+
+Condition:
+
+Number of elements = Maximum Size
+Example:
+
+Size = 3
+
+[(A,3), (B,1), (C,2)]
+Trying:
+
+Enqueue(D, 1)
+Output:
+
+Priority Queue Overflow!!
+Priority Queue Underflow
+Underflow occurs when we try to remove an element from an empty Priority Queue.
+
+Example:
+
+Priority Queue = [ ]
+Trying:
+
+Dequeue()
+Output:
+
+Priority Queue Underflow!!
+16. Time Complexity
+For the given unsorted list implementation:
+
+Operation	Time Complexity
+Enqueue	O(1)
+Dequeue	O(n)
+Peek	O(n)
+is_Empty	O(1)
+is_Full	O(1)
+Display	O(n)
+Space Complexity
+For n elements:
+
+Space Complexity = O(n)
+17. Applications of Priority Queue
+Priority Queues are used where some tasks are more important than others.
+
+1. CPU Scheduling
+Processes with higher priority are executed first.
+
+High Priority Process
+        ↓
+Executed First
+2. Dijkstra's Algorithm
+Priority Queue helps select the vertex with the smallest distance.
+
+3. Prim's Algorithm
+It helps select the edge with minimum weight.
+
+4. Hospital Emergency System
+Patients with more serious conditions are given higher priority.
+
+5. Network Routing
+Important packets can be processed before lower-priority packets.
+
+18. Difference Between Normal Queue and Priority Queue
+Normal Queue	Priority Queue
+Follows FIFO	Follows Priority
+First inserted element is removed first	Highest-priority element is removed first
+All elements have equal importance	Each element has a priority
+Used in normal scheduling	Used in priority scheduling
+Enqueue at Rear	Insert with priority
+Example:
+
+Normal Queue
+10 → 20 → 30
+Removal order:
+
+10 → 20 → 30
+Priority Queue
+10 Priority 3
+20 Priority 1
+30 Priority 2
+Removal order:
+
+20 → 30 → 10
+19. Important Viva Questions
+1. What is a Priority Queue?
+A Priority Queue is a data structure in which elements are removed according to their priority.
+
+2. Does a Priority Queue always follow FIFO?
+No. Elements are generally processed according to priority.
+
+3. What is the highest-priority element in this implementation?
+The element with the smallest priority number.
+
+4. What is Enqueue in a Priority Queue?
+It inserts an element along with its priority.
+
+5. What is Dequeue in a Priority Queue?
+It removes the highest-priority element.
+
+6. What is Peek?
+Peek displays the highest-priority element without removing it.
+
+7. What is Priority Queue Overflow?
+It occurs when insertion is attempted in a full Priority Queue.
+
+8. What is Priority Queue Underflow?
+It occurs when deletion is attempted in an empty Priority Queue.
+
+9. What is the time complexity of Enqueue in this implementation?
+O(1).
+
+10. What is the time complexity of Dequeue in this implementation?
+O(n) because we search for the highest-priority element.
+
+11. Where are Priority Queues used?
+CPU scheduling, Dijkstra's algorithm, Prim's algorithm, emergency systems, and network routing.
+
+12. Which data structure is commonly used to efficiently implement a Priority Queue?
+A Heap.
+
+Final Summary
+              PRIORITY QUEUE
+
+        Every Element Has Priority
+
+       Element       Priority
+
+          A              3
+          B              1
+          C              2
+
+
+        Processing Order
+
+             B → C → A
+
+
+    Smaller Priority Number
+              ↓
+       Higher Priority
+The main operations are:
+
+Enqueue → Insert element with priority
+Dequeue → Remove highest-priority element
+Peek    → View highest-priority element
+Display → Display all elements
